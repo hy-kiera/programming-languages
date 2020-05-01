@@ -19,6 +19,15 @@ let partition p l =
               else part p (l1, l2 @ [h]) t
     in part p ([], []) l;;
 
+(* Solution *)
+let rec partition p l =
+  match l with
+  [] -> ([], [])
+  | h::t -> let (ts, fs) = partition p t in
+            if p h then (h::ts, fs)
+            else (ts, h::fs)
+
+
 (* Exercise 4 - OK *)
 type formula = TRUE | FALSE
   | NOT of formula
@@ -110,3 +119,16 @@ let rec cartesian a b =
   match a with
   [] -> []
   | h::t -> comb h b @ cartesian t b;;
+
+(* Solution *)
+let rec map f l =
+  match l with
+  [] -> []
+  | h::t -> (f h)::(map f t)
+
+let rec cartesian a b =
+  match a with
+  [] -> []
+  (* Single list *)
+  | h::[] -> map (func x -> (h, x)) b
+  | h::t -> (cartesian [h] b) @ (cartesian t b)
