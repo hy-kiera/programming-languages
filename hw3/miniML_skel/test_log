@@ -1,0 +1,60 @@
+
+$ ./run test/bin2dec.m
+1011
+11
+
+$ ./run test/chain.m
+11
+
+$ ./run test/dfact.m
+10
+3840
+
+$ ./run test/digitsum.m
+1123
+7
+
+$ ./run test/double.m
+5
+10
+
+$ ./run test/factorial.m
+10
+3628800
+
+$ ./run test/modular.m
+1034
+34
+14
+
+$ ./run test/proc1.m
+55
+
+$ ./run test/proc2.m
+55
+
+$ ./run test/proc3.m
+-100
+
+$ ./run test/proc4.m
+7
+
+$ ./run test/proc5.m
+12345
+49380
+
+$ ./run test/proc6.m
+6
+
+$ ./run test/reverse.m
+12345
+54321
+
+$ ./run test/state1.m
+-1
+
+$ ./run test/state2.m
+-1
+
+$ ./run test/state3.m
+0
