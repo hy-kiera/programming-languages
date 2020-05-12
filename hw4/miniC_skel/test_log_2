@@ -1,0 +1,35 @@
+$ ./run -print_mem_size test/test13.c
+25
+Final mem size: 4
+$ ./run -gc -print_mem_size test/test13.c
+25
+Final mem size: 1
+
+$ ./run -print_mem_size test/test15.c
+5
+Final mem size: 5
+$ ./run -gc -print_mem_size test/test15.c
+5
+Final mem size: 4
+
+$ ./run -print_mem_size test/test19.c
+18
+Final mem size: 5
+$ ./run -gc -print_mem_size test/test19.c
+18
+Final mem size: 2
+
+$ ./run -print_mem_size test/test21.c
+9
+Final mem size: 5
+$ ./run -gc -print_mem_size test/test21.c
+9
+Final mem size: 2
+
+$ ./run -print_mem_size test/test25.c
+170
+Final mem size: 10
+$ ./run -gc -print_mem_size test/test25.c
+170
+Final mem size: 6
+

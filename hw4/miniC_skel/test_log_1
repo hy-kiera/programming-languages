@@ -1,0 +1,135 @@
+$ ./run test/fact.c
+10
+3628800
+
+$ ./run test/fib.c
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+89
+144
+233
+377
+610
+987
+1597
+2584
+4181
+6765
+10946
+17711
+28657
+46368
+75025
+121393
+196418
+317811
+514229
+832040
+
+$ ./run test/pattern.c
+8
+1
+12
+123
+1234
+12345
+123456
+1234567
+12345678
+
+$ ./run test/power.c
+3
+4
+81
+
+$ ./run test/test1.c
+3
+
+$ ./run test/test10.c
+Fatal error: exception Failure("g is unbound in Env")
+
+$ ./run test/test11.c
+7
+
+$ ./run test/test12.c
+5
+
+$ ./run test/test13.c
+25
+
+$ ./run test/test15.c
+5
+
+$ ./run test/test16.c
+25
+
+$ ./run test/test17.c
+11
+
+$ ./run test/test18.c
+6
+
+$ ./run test/test19.c
+18
+
+$ ./run test/test2.c
+2
+
+$ ./run test/test20.c
+100
+
+$ ./run test/test21.c
+9
+
+$ ./run test/test22.c
+6
+
+$ ./run test/test23.c
+4
+
+$ ./run test/test24.c
+Fatal error: exception C.UndefinedSemantics
+
+$ ./run test/test25.c
+170
+
+$ ./run test/test3.c
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+$ ./run test/test4.c
+55
+
+$ ./run test/test5.c
+11
+
+$ ./run test/test6.c
+5
+
+$ ./run test/test7.c
+14
+
+$ ./run test/test8.c
+1
+11
+222
+
+$ ./run test/test9.c
+Fatal error: exception C.UndefinedSemantics
+
