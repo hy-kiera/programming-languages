@@ -1,0 +1,29 @@
+let main () =
+    let poly = ref false in
+    let src = ref "" in
+    let spec = [("-poly", Arg.Set poly, "polymorhic type inference") ] 
+		in
+    let usage = "Usage: run <options> <file>" in
+    let _ = Arg.parse spec
+                (fun
+                   x ->
+                     if Sys.file_exists x then src := x
+                     else raise (Arg.Bad (x ^ ": No files given")))
+                usage
+    in
+    
+	if !src = "" then Arg.usage spec usage
+    else
+    	let file_channel = open_in !src in
+    	let lexbuf = Lexing.from_channel file_channel in
+    	let pgm = Parser.program Lexer.start lexbuf in
+		try
+      print_endline "";
+      print_endline "= Program = ";
+      ignore (Sys.command ("cat " ^ !src));
+      print_endline "";
+      if (!poly) then ignore (P.typeof pgm)
+			else ignore (M.typeof pgm) 
+		with Lexer.LexicalError -> print_endline (!src ^ ": Lexical Error")
+
+let _ = main ()

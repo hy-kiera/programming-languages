@@ -1,0 +1,507 @@
+$ ./run test/basic1.m
+
+= Program = 
+let x = read in
+  proc (y) (x + y)
+
+= Equations = 
+t2 = int
+t1 = (t3 -> t4)
+t4 = int
+int = t2
+int = t3
+
+= Substitution = 
+t3 |-> int
+t4 |-> int
+t1 |-> (int -> int)
+t2 |-> int
+
+Type of the given program: (int -> int)
+
+
+$ ./run test/double.m
+
+= Program = 
+let x = read in
+  letrec double(x) = if iszero x then 0 else (double (x-1)) + 2 in 
+    double
+
+= Equations = 
+t2 = int
+bool = bool
+int = t3
+t4 = int
+t4 = int
+(t5 -> int) = (t3 -> t4)
+t5 = int
+int = t3
+int = int
+int = int
+t1 = (t3 -> t4)
+
+= Substitution = 
+t1 |-> (int -> int)
+t5 |-> int
+t4 |-> int
+t3 |-> int
+t2 |-> int
+
+Type of the given program: (int -> int)
+
+
+$ ./run test/example1.m
+
+= Program = 
+proc (f) proc (x) ((f 3) - (f x))
+
+= Equations = 
+t1 = (t2 -> t3)
+t3 = (t4 -> t5)
+t5 = int
+(t7 -> int) = t2
+t7 = int
+(t6 -> int) = t2
+t6 = t4
+
+= Substitution = 
+t4 |-> int
+t6 |-> int
+t7 |-> int
+t2 |-> (int -> int)
+t5 |-> int
+t3 |-> (int -> int)
+t1 |-> ((int -> int) -> (int -> int))
+
+Type of the given program: ((int -> int) -> (int -> int))
+
+
+$ ./run test/example2.m
+
+= Program = 
+proc (f) (f 11)
+
+= Equations = 
+t1 = (t2 -> t3)
+(t4 -> t3) = t2
+t4 = int
+
+= Substitution = 
+t4 |-> int
+t2 |-> (int -> t3)
+t1 |-> ((int -> t3) -> t3)
+
+Type of the given program: ((int -> t3) -> t3)
+
+
+$ ./run test/example3.m
+
+= Program = 
+let x = iszero 1 in
+  if x then (x-1) else 0
+
+= Equations = 
+t2 = bool
+int = int
+bool = t2
+t1 = int
+int = t2
+int = int
+t1 = int
+
+The program does not have type. Rejected.
+
+$ ./run test/example4.m
+
+= Program = 
+proc (f) (iszero (f f))
+
+= Equations = 
+t1 = (t2 -> t3)
+t3 = bool
+(t4 -> int) = t2
+t4 = t2
+
+The program does not have type. Rejected.
+
+$ ./run test/exercise1.m
+
+= Program = 
+let x = 4 in (x 3)
+
+= Equations = 
+t2 = int
+(t3 -> t1) = t2
+t3 = int
+
+The program does not have type. Rejected.
+
+$ ./run test/exercise2.m
+
+= Program = 
+let f = proc (z) z in 
+  proc (x) ((f x) - 1)
+
+= Equations = 
+t2 = (t6 -> t7)
+t7 = t6
+t1 = (t3 -> t4)
+t4 = int
+(t5 -> int) = t2
+t5 = t3
+int = int
+
+= Substitution = 
+t3 |-> int
+t6 |-> int
+t5 |-> int
+t4 |-> int
+t1 |-> (int -> int)
+t7 |-> int
+t2 |-> (int -> int)
+
+Type of the given program: (int -> int)
+
+
+$ ./run test/exercise3.m
+
+= Program = 
+let p = iszero 1 in
+  if p then 88 else 99
+
+= Equations = 
+t2 = bool
+int = int
+bool = t2
+t1 = int
+t1 = int
+
+= Substitution = 
+t1 |-> int
+t2 |-> bool
+
+Type of the given program: int
+
+
+$ ./run test/exercise4.m
+
+= Program = 
+let f = proc (x) x in
+  if (f (iszero 0)) then (f 11) else (f 22)
+
+= Equations = 
+t2 = (t6 -> t7)
+t7 = t6
+(t5 -> bool) = t2
+t5 = bool
+int = int
+(t4 -> t1) = t2
+t4 = int
+(t3 -> t1) = t2
+t3 = int
+
+The program does not have type. Rejected.
+
+$ ./run test/factorial.m
+
+= Program = 
+letrec fact(n) = if iszero n then 1 else ((fact (n-1)) * n) in
+  (fact read)
+
+= Equations = 
+bool = bool
+int = t2
+t3 = int
+t3 = int
+(t5 -> int) = (t2 -> t3)
+t5 = int
+int = t2
+int = int
+int = t2
+(t4 -> t1) = (t2 -> t3)
+t4 = int
+
+= Substitution = 
+t1 |-> int
+t4 |-> int
+t5 |-> int
+t3 |-> int
+t2 |-> int
+
+Type of the given program: int
+
+
+$ ./run test/poly.m
+
+= Program = 
+let f = proc (x) x in
+  if (f (iszero (0)))
+  then (f 11)
+  else (f 22)
+
+= Equations = 
+t2 = (t6 -> t7)
+t7 = t6
+(t5 -> bool) = t2
+t5 = bool
+int = int
+(t4 -> t1) = t2
+t4 = int
+(t3 -> t1) = t2
+t3 = int
+
+The program does not have type. Rejected.
+
+$ ./run test/proc1.m
+
+= Program = 
+let f = proc (x) (x-11) in
+  (f (f 77))
+
+= Equations = 
+t2 = (t5 -> t6)
+t6 = int
+int = t5
+int = int
+(t3 -> t1) = t2
+(t4 -> t3) = t2
+t4 = int
+
+= Substitution = 
+t4 |-> int
+t1 |-> int
+t3 |-> int
+t5 |-> int
+t6 |-> int
+t2 |-> (int -> int)
+
+Type of the given program: int
+
+
+$ ./run test/proc10.m
+
+= Program = 
+let x = iszero true in 5
+
+= Equations = 
+t2 = bool
+int = bool
+t1 = int
+
+The program does not have type. Rejected.
+
+$ ./run test/proc2.m
+
+= Program = 
+(proc (f) (f (f 77)) proc (x) (x-11))
+
+= Equations = 
+(t2 -> t1) = (t5 -> t6)
+(t7 -> t6) = t5
+(t8 -> t7) = t5
+t8 = int
+t2 = (t3 -> t4)
+t4 = int
+int = t3
+int = int
+
+= Substitution = 
+t4 |-> int
+t3 |-> int
+t6 |-> int
+t7 |-> int
+t8 |-> int
+t5 |-> (int -> int)
+t1 |-> int
+t2 |-> (int -> int)
+
+Type of the given program: int
+
+
+$ ./run test/proc3.m
+
+= Program = 
+let x = 200 in
+  let f = proc (z) (z-x) in
+    let x = 100 in
+      let g = proc (z) (z-x) in
+        (f 1) - (g 1)
+
+= Equations = 
+t2 = int
+t3 = (t10 -> t11)
+t11 = int
+int = t10
+int = t2
+t4 = int
+t5 = (t8 -> t9)
+t9 = int
+int = t8
+int = t4
+t1 = int
+(t7 -> int) = t3
+t7 = int
+(t6 -> int) = t5
+t6 = int
+
+= Substitution = 
+t6 |-> int
+t7 |-> int
+t1 |-> int
+t8 |-> int
+t9 |-> int
+t5 |-> (int -> int)
+t4 |-> int
+t10 |-> int
+t11 |-> int
+t3 |-> (int -> int)
+t2 |-> int
+
+Type of the given program: int
+
+
+$ ./run test/proc4.m
+
+= Program = 
+let f = proc (x) proc (y) (x+y) in
+  ((f 3) 4)
+
+= Equations = 
+t2 = (t5 -> t6)
+t6 = (t7 -> t8)
+t8 = int
+int = t5
+int = t7
+(t4 -> (t3 -> t1)) = t2
+t4 = int
+t3 = int
+
+= Substitution = 
+t1 |-> int
+t3 |-> int
+t4 |-> int
+t7 |-> int
+t5 |-> int
+t8 |-> int
+t6 |-> (int -> int)
+t2 |-> (int -> (int -> int))
+
+Type of the given program: int
+
+
+$ ./run test/proc5.m
+
+= Program = 
+let makemult = 
+  proc (maker)
+    proc (x)
+      if iszero (x) then 0 
+      else (((maker maker) (x-1)) + 4) in
+  let times4 = proc (x) ((makemult makemult) x) in
+    (times4 read)
+
+= Equations = 
+t2 = (t9 -> t10)
+t10 = (t11 -> t12)
+bool = bool
+int = t11
+t12 = int
+t12 = int
+(t14 -> (t13 -> int)) = t9
+t14 = t9
+t13 = int
+int = t11
+int = int
+int = int
+t3 = (t5 -> t6)
+(t8 -> (t7 -> t6)) = t2
+t8 = t2
+t7 = t5
+(t4 -> t1) = t3
+t4 = int
+
+The program does not have type. Rejected.
+
+$ ./run test/proc6.m
+
+= Program = 
+let a = 3 in
+  let p = proc (x) (x-a) in
+    let a = 5 in
+      (a - (p 2))
+
+= Equations = 
+t2 = int
+t3 = (t6 -> t7)
+t7 = int
+int = t6
+int = t2
+t4 = int
+t1 = int
+int = t4
+(t5 -> int) = t3
+t5 = int
+
+= Substitution = 
+t5 |-> int
+t1 |-> int
+t4 |-> int
+t6 |-> int
+t7 |-> int
+t3 |-> (int -> int)
+t2 |-> int
+
+Type of the given program: int
+
+
+$ ./run test/proc7.m
+
+= Program = 
+let f = proc (x) (1) in (f 1) + (f true)
+
+= Equations = 
+t2 = (t5 -> t6)
+t6 = int
+t1 = int
+(t4 -> int) = t2
+t4 = int
+(t3 -> int) = t2
+t3 = bool
+
+The program does not have type. Rejected.
+
+$ ./run test/proc8.m
+
+= Program = 
+let f = proc (x) (x) in if (f true) then 1 else ((f f) 2)
+
+= Equations = 
+t2 = (t6 -> t7)
+t7 = t6
+(t5 -> bool) = t2
+t5 = bool
+t1 = int
+(t4 -> (t3 -> t1)) = t2
+t4 = t2
+t3 = int
+
+The program does not have type. Rejected.
+
+$ ./run test/proc9.m
+
+= Program = 
+proc (c) (let f = proc (x) c in if (f true) then 1 else ((f f) 2))
+
+= Equations = 
+t1 = (t2 -> t3)
+t4 = (t8 -> t9)
+t9 = t2
+(t7 -> bool) = t4
+t7 = bool
+t3 = int
+(t6 -> (t5 -> t3)) = t4
+t6 = t4
+t5 = int
+
+The program does not have type. Rejected.
+
