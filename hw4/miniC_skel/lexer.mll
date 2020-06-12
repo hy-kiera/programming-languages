@@ -16,10 +16,10 @@
                     ("false", FALSE);
                     ("begin", BEGIN);
                     ("end", END);
-										("let", LET);
-										("in", IN);
-										("proc", PROC);
-										("skip", SKIP);
+                    ("let", LET);
+                    ("in", IN);
+                    ("proc", PROC);
+                    ("skip", SKIP);
                   ] 
 } 
 
@@ -36,11 +36,11 @@ rule start =
                with _ -> ID id
             }
      | ","   { COMMA }
-		 | "."   { DOT } 
-		 | "+"   { PLUS }
+     | "."   { DOT } 
+     | "+"   { PLUS }
      | "-"   { MINUS }
      | "*"   { STAR }
-		 | "/"   { SLASH } 
+     | "/"   { SLASH } 
      | "!"   { NOT }
      | "="   { EQUALEQUAL }
      | ":="  { EQUAL }
@@ -48,7 +48,7 @@ rule start =
      | ";"   { SEMICOLON }
      | "("   { LPAREN }
      | ")"   { RPAREN }
-		 | "<"   { LBLOCK }
+     | "<"   { LBLOCK }
      | ">"   { RBLOCK }		
      | "{"   { LBRACE }
      | "}"   { RBRACE } 
